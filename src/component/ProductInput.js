@@ -2,22 +2,21 @@ import { useRef, useState } from "react";
 import { postProduct } from "../api/ProductAPI";
 
 const initstate = {
-    title : '',
-    content: '',
-    writer: '',
-    images: []
+    pname : 'Ice Coffee',
+    pdesc: 'Coffee...',
+    price: 4000
 }
 
 const ProductInput = () => {
 
 
     const fileRef = useRef();
-    const [board , setBoard] = useState({...initstate})
+    const [product , setProduct] = useState({...initstate})
 
     const handleChange = (e) => {
 
-        board[e.target.name] = e.target.value
-        setBoard({...board});
+        product[e.target.name] = e.target.value
+        setProduct({...product});
 
     }
     
@@ -25,9 +24,9 @@ const ProductInput = () => {
 
         // console.log(board)
         const formData = new FormData();
-        formData.append("title" , board.title)
-        formData.append("content" , board.content)
-        formData.append("writer" , board.writer)
+        formData.append("pname" , product.pname)
+        formData.append("pdesc" , product.pdesc)
+        formData.append("price" , product.price)
 
         console.log(fileRef.current)
 
@@ -43,7 +42,7 @@ const ProductInput = () => {
     const handleclickClear = (e) => {
 
         fileRef.current.value = '';
-        setBoard({...initstate});
+        // setProduct({...initstate});
 
     }
     
@@ -51,13 +50,13 @@ const ProductInput = () => {
         <div>
             <h1>input</h1>
             <div>
-                <input type="text" name="title" value={board.title} onChange={handleChange}></input>
+                <input type="text" name="pname" value={product.pname} onChange={handleChange}></input>
             </div>
             <div>
-                <input type="text" name="content" value={board.content} onChange={handleChange}></input>
+                <input type="text" name="pdesc" value={product.pdesc} onChange={handleChange}></input>
             </div>
             <div>
-                <input type="text" name="writer" value={board.writer} onChange={handleChange}></input>
+                <input type="number" name="price" value={product.price} onChange={handleChange}></input>
             </div>
             <div>
                 <input type="file" ref={fileRef} multiple name="images" onChange={handleChange}></input>
